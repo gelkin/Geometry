@@ -17,6 +17,11 @@ Vector3D GeometryView::toDecard(const Vector2D &v)
                     radius * cos(v.x));
 }
 
+void GeometryView::setRadius(double radius)
+{
+    this->radius = radius;
+}
+
 double GeometryView::getRadius() const
 {
     return radius;

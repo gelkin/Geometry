@@ -22,9 +22,11 @@ public:
     Vector3D position;
     Vector3D toDecard(const Vector2D& v);
 
+    void setRadius(double radius);
     double getRadius() const;
-    double angle;
+
 private:
+    double angle;
     double radius;
     int type;
     int quality;
