@@ -6,7 +6,7 @@ Radix::Radix()
     this->m = 0;
 }
 
-Radix::Radix(__int64 n, __int64 m)
+Radix::Radix(long long n, long long m)
 {
     this->n = n;
     this->m = m;
@@ -18,7 +18,7 @@ Radix::Radix(const Radix &other)
     this->m = other.m;
 }
 
-Radix::Radix(__int64 value)
+Radix::Radix(long long value)
 {
     operator =(value);
 }
@@ -59,19 +59,19 @@ Radix Radix::operator /(const Radix& other)
     return Radix(this->n * other.m, this->m * other.n).normalize();
 }
 
-__int64 Radix::getNumerator()
+long long Radix::getNumerator()
 {
     return n;
 }
 
-__int64 Radix::getDenominator()
+long long Radix::getDenominator()
 {
     return m;
 }
 
 Radix& Radix::normalize()
 {
-    __int64 g = gcd(n, m);
+    long long g = gcd(n, m);
     n /= g;
     m /= g;
     return *this;
@@ -88,14 +88,14 @@ Radix& Radix::operator=(const Radix& other)
     return *this;
 }
 
-Radix& Radix::operator=(__int64 value)
+Radix& Radix::operator=(long long value)
 {
     n = value;
     m = 1;
     return *this;
 }
 
-__int64 Radix::gcd(__int64 u, __int64 v)
+long long Radix::gcd(long long u, long long v)
 {
     int shift;
     if (u == 0 || v == 0)

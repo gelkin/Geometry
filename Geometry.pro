@@ -37,3 +37,5 @@ HEADERS  += \
     vectornd.h \
     random.h \
     exampleclass.h
+
+QMAKE_CXXFLAGS += -std=c++11
