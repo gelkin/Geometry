@@ -21,17 +21,17 @@ Vector3D::Vector3D(const Vector3D &other)
     operator =(other);
 }
 
-Vector3D Vector3D::cross(const Vector3D &a, const Vector3D &b)
-{
-    return Vector3D(a.y * b.z - b.y * a.z, b.x * a.z - a.x * b.z, a.x * b.y - b.x * a.y);
-}
-
 Vector3D& Vector3D::operator =(const Vector3D& other)
 {
     this->x = other.x;
     this->y = other.y;
     this->z = other.z;
     return *this;
+}
+
+Vector3D Vector3D::cross(const Vector3D &a, const Vector3D &b)
+{
+    return Vector3D(a.y * b.z - b.y * a.z, b.x * a.z - a.x * b.z, a.x * b.y - b.x * a.y);
 }
 
 Vector3D Vector3D::operator -(const Vector3D& other) const

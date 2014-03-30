@@ -105,22 +105,30 @@ void Visualization::keyPressEvent(QKeyEvent *e)
             view_angle_a = 0;
             view_angle_b = M_PI / 4;
         } break;
-        case Qt::Key_Q:
+        case Qt::Key_V:
         {
             space->addPoint(Vector2D(view_angle_b, view_angle_a));
         } break;
+        case Qt::Key_X:
+        {
+            space->removePoint(Vector2D(view_angle_b, view_angle_a));
+        } break;
+        case Qt::Key_A:
         case Qt::Key_Left:
         {
             view_angle_a -= 0.1f;
         } break;
+        case Qt::Key_D:
         case Qt::Key_Right:
         {
             view_angle_a += 0.1f;
         } break;
+        case Qt::Key_W:
         case Qt::Key_Up:
         {
             view_angle_b -= 0.1f;
         } break;
+        case Qt::Key_S:
         case Qt::Key_Down:
         {
             view_angle_b += 0.1f;

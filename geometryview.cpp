@@ -32,6 +32,19 @@ void GeometryView::addPoint(const Vector2D& p)
     points.push_back(p);
 }
 
+void GeometryView::removePoint(const Vector2D& p)
+{
+    for (int i = 0; i < points.size(); ++i)
+    {
+        if (points[i] == p)
+        {
+            points[i] = points[points.size() - 1];
+            points.pop_back();
+            break;
+        }
+    }
+}
+
 /*Vector2D GeometryView::crossing(double colatitude, double azimuth)
 {
     double x = radius * sin(colatitude) * cos(azimuth);

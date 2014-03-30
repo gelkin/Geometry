@@ -16,6 +16,7 @@ public:
     virtual void render();
 
     void addPoint(const Vector2D& p);
+    void removePoint(const Vector2D& p);
     void addLine(const Vector2D& a, const Vector2D& b);
 
     Vector3D position;
