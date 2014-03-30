@@ -107,14 +107,7 @@ void Visualization::keyPressEvent(QKeyEvent *e)
         } break;
         case Qt::Key_Q:
         {
-            Vector3D camera;
-            camera.x = distance * sin(view_angle_b) * cos(view_angle_a);
-            camera.y = distance * sin(view_angle_b) * sin(view_angle_a);
-            camera.z = distance * cos(view_angle_b);
-
-            Vector3D target(0,0,0);
-            Vector2D result = space->crossing(camera, target, view_angle_a);
-            space->addPoint(result);
+            space->addPoint(Vector2D(view_angle_b, view_angle_a));
         } break;
         case Qt::Key_Left:
         {

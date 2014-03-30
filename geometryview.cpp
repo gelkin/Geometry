@@ -32,14 +32,14 @@ void GeometryView::addPoint(const Vector2D& p)
     points.push_back(p);
 }
 
-Vector2D GeometryView::crossing(const Vector3D& camera, const Vector3D& target, double angle)
+/*Vector2D GeometryView::crossing(double colatitude, double azimuth)
 {
-    double x = camera.x;
-    double y = camera.y;
-    double z = camera.z;
-    double a = target.x - camera.x;
-    double b = target.y - camera.y;
-    double c = target.z - camera.z;
+    double x = radius * sin(colatitude) * cos(azimuth);
+    double y = radius * sin(colatitude) * sin(azimuth);
+    double z = radius * cos(colatitude);
+    double a = -x;
+    double b = -y;
+    double c = -z;
 
     double n = a * a + b * b + c * c;
     double m = x * a + y * b + z * c;
@@ -48,9 +48,6 @@ Vector2D GeometryView::crossing(const Vector3D& camera, const Vector3D& target, 
 
     double t1 = (-2 * m + sqrt(d)) / (2 * n);
     double t2 = (-2 * m - sqrt(d)) / (2 * n);
-
-    Console::print(t1);
-    Console::print(t2);
 
     Vector3D p(x + a*t1, y + b*t1, z + c*t1);
     Vector3D p2(x + a*t2, y + b*t2, z + c*t2);
@@ -68,27 +65,10 @@ Vector2D GeometryView::crossing(const Vector3D& camera, const Vector3D& target, 
         result.x = atan(sqrt(p2.x * p2.x + p2.y * p2.y) / p2.z);
         result.y = atan(p2.y / p2.x);
     }
-    angle = fmod(angle, 2 * M_PI);
-    if (angle < -M_PI / 2)
-    {
-        result.y -= M_PI;
-    }
-    if (angle < -3 * M_PI / 2)
-    {
-        result.y -= M_PI;
-    }
-    if (angle > M_PI / 2)
-    {
-        result.y += M_PI;
-    }
-    if (angle > 3*M_PI/2)
-    {
-        result.y += M_PI;
-    }
-    Console::print(result.y);
-    Console::print(angle);
+    result.x = colatitude;
+    result.y = azimuth;
     return result;
-}
+}*/
 
 void GeometryView::drawPoint(const Vector2D& p)
 {

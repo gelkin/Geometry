@@ -18,7 +18,6 @@ public:
     void addPoint(const Vector2D& p);
     void addLine(const Vector2D& a, const Vector2D& b);
 
-    Vector2D crossing(const Vector3D&, const Vector3D&, double);
     Vector3D position;
     Vector3D toDecard(const Vector2D& v);
 
