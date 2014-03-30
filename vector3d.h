@@ -10,6 +10,7 @@ public:
     Vector3D& operator =(const Vector3D& other);
     Vector3D& operator+=(const Vector3D& other);
     Vector3D& operator-=(const Vector3D& other);
+    Vector3D operator -(const Vector3D& other) const;
 
     static Vector3D cross(const Vector3D& a, const Vector3D& b);
 

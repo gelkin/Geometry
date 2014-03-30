@@ -24,6 +24,7 @@ public:
     void resizeGL(int, int);
     void paintGL();
     void keyPressEvent(QKeyEvent *);
+    void mouseReleaseEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
     void wheelEvent(QWheelEvent *);
     void perspective(float, float, float, float);

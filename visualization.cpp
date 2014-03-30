@@ -26,7 +26,7 @@ Visualization::Visualization(QWidget *parent) : QGLWidget(parent)
         Vector2D v;
         v.x = Random::nextDouble(0, M_PI);
         v.y = Random::nextDouble(0, M_PI);
-        space->addPoint(v);
+        //space->addPoint(v);
     }
 }
 
@@ -105,6 +105,17 @@ void Visualization::keyPressEvent(QKeyEvent *e)
             view_angle_a = 0;
             view_angle_b = M_PI / 4;
         } break;
+        case Qt::Key_Q:
+        {
+            Vector3D camera;
+            camera.x = distance * sin(view_angle_b) * cos(view_angle_a);
+            camera.y = distance * sin(view_angle_b) * sin(view_angle_a);
+            camera.z = distance * cos(view_angle_b);
+
+            Vector3D target(0,0,0);
+            Vector2D result = space->crossing(camera, target, view_angle_a);
+            space->addPoint(result);
+        } break;
         case Qt::Key_Left:
         {
             view_angle_a -= 0.1f;
@@ -141,13 +152,16 @@ void Visualization::keyPressEvent(QKeyEvent *e)
     }
 
     e->accept();
-    //updateGL();
+}
+
+void Visualization::mouseReleaseEvent(QMouseEvent *e)
+{
+    e->accept();
 }
 
 void Visualization::mouseMoveEvent(QMouseEvent *e)
 {
     e->accept();
-    //updateGL();
 }
 
 void Visualization::wheelEvent(QWheelEvent *e)
@@ -161,7 +175,6 @@ void Visualization::wheelEvent(QWheelEvent *e)
         distance += 20;
     }
     e->accept();
-    //updateGL();
 }
 
 void Visualization::paintGL()
