@@ -18,7 +18,7 @@ class Visualization : public QGLWidget
     
 public:
     Visualization(QWidget *parent = 0);
-    ~Visualization();
+    virtual ~Visualization();
 
     void initializeGL();
     void resizeGL(int, int);
@@ -30,12 +30,14 @@ public:
     void perspective(float, float, float, float);
     void lookAt(const Vector3D& eye, const Vector3D& lookAt, const Vector3D& up);
 
+protected:
+    GeometryView* space;
+
 private:
     float distance;
     float view_angle_a;
     float view_angle_b;
     bool rotating;
-    GeometryView* space;
     QTimer* timer;
 };
 

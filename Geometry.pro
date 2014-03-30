@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     geometryview.cpp \
     visualization.cpp \
     vectornd.cpp \
-    random.cpp
+    random.cpp \
+    exampleclass.cpp
 
 HEADERS  += \
     vector2d.h \
@@ -34,4 +35,5 @@ HEADERS  += \
     geometryview.h \
     visualization.h \
     vectornd.h \
-    random.h
+    random.h \
+    exampleclass.h
