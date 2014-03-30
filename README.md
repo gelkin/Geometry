@@ -1,5 +1,11 @@
 Geometry
 ========
+
+Следует учесть, что инструкция написана исходя из того, что перед установкой была уже выполнена инструкция Ковалева и все зависимости сохранились. Также я надеюсь, что будет использоваться QtCreator >= 5.0 && (Ubuntu >=12.0 || Windows >= 7). Иначе, если хотя один из пунктов не выполнен, то за работоспособность кода я не отвечаю :) 
+
+В общем случае, нужно:
+```sudo apt-get install qtcreator git cmake-curses-gui libgmp-dev libqt4-dev libboost1.54-all-dev subversion```
+
 ## Controls
 
 **W, UP** - decrease colatitude
