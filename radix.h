@@ -7,7 +7,7 @@ public:
     Radix();
     Radix(long long n, long long m);
     Radix(const Radix& other);
-    Radix(long long value, qu);
+    Radix(long long value);
     double get_d();
     Radix operator+(const Radix& other);
     Radix operator-(const Radix& other);

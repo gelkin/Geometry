@@ -28,7 +28,7 @@ Vector2D& Vector2D::operator =(const Vector2D& other)
 
 bool Vector2D::operator ==(const Vector2D& other) const
 {
-    return (abs(this->x - other.x) < 1e-32) && (abs(this->y - other.y) < 1e-32);
+    return (fabs(this->x - other.x) < 1e-32) && (fabs(this->y - other.y) < 1e-32);
 }
 
 Vector2D Vector2D::operator -(const Vector2D& other) const
