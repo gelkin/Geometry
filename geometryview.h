@@ -20,8 +20,7 @@ public:
 
     Vector3D position;
     Vector3D toDecard(const Vector2D& v);
-    void drawPoint(const Vector2D& p);
-    void drawLine(const Vector2D& a, const Vector2D& b);
+
     double getRadius() const;
     double angle;
 private:
@@ -30,6 +29,9 @@ private:
     int quality;
     std::vector<Line2D> lines;
     std::vector<Vector2D> points;
+
+    void drawPoint(const Vector2D& p);
+    void drawLine(const Vector2D& a, const Vector2D& b);
 };
 
 #endif // SPHERE_H

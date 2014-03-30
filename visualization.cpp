@@ -21,7 +21,7 @@ Visualization::Visualization(QWidget *parent) : QGLWidget(parent)
     space->addLine(Vector2D(M_PI / 2, 0), Vector2D(M_PI / 2, M_PI / 2));
     space->addLine(Vector2D(0.0, M_PI / 2), Vector2D(M_PI / 2, M_PI / 2));
 
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < 30; ++i)
     {
         Vector2D v;
         v.x = Random::nextDouble(0, M_PI);
