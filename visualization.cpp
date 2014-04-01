@@ -91,6 +91,7 @@ void Visualization::keyPressEvent(QKeyEvent *e)
         {
             view_angle_a = 0;
             view_angle_b = M_PI / 4;
+            space->clear();
         } break;
         case Qt::Key_V:
         {
@@ -156,7 +157,10 @@ void Visualization::wheelEvent(QWheelEvent *e)
 {
     if (e->delta() > 0)
     {
-        distance -= 20;
+        if (distance - 20 >= space->getRadius())
+        {
+            distance -= 20;
+        }
     }
     else
     {

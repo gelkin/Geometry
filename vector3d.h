@@ -13,7 +13,8 @@ public:
     Vector3D operator -(const Vector3D& other) const;
 
     static Vector3D cross(const Vector3D& a, const Vector3D& b);
-
+    static double scalar(const Vector3D &a, const Vector3D &b);
+    static double angleBetween(const Vector3D &a, const Vector3D &b);
 
     double getLenght() const;
     void normalize();

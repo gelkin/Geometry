@@ -19,17 +19,22 @@ public:
     void removePoint(const Vector2D& p);
     void addLine(const Vector2D& a, const Vector2D& b);
 
-    Vector3D position;
-    Vector3D toDecard(const Vector2D& v);
-
+    Vector3D map(const Vector2D& v);
+    void setLineSegments(int line_segments);
+    int getLineSegments() const;
+    void setSpaceSegments(int space_segments);
+    int getSpaceSegments() const;
     void setRadius(double radius);
     double getRadius() const;
+    void clear();
 
 private:
+    Vector3D position;
     double angle;
     double radius;
     int type;
-    int quality;
+    int line_segments;
+    int space_segments;
     std::vector<Line2D> lines;
     std::vector<Vector2D> points;
 

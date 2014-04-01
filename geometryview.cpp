@@ -5,12 +5,33 @@
 GeometryView::GeometryView(double radius)
 {
     this->radius = radius;
-    type = 0;
-    quality = 10;
-    angle = 0;
+    this->type = 0;
+    this->line_segments = 20;
+    this->space_segments = 30;
+    this->angle = 0;
 }
 
-Vector3D GeometryView::toDecard(const Vector2D &v)
+void GeometryView::setLineSegments(int line_segments)
+{
+    this->line_segments = line_segments;
+}
+
+int GeometryView::getLineSegments() const
+{
+    return line_segments;
+}
+
+void GeometryView::setSpaceSegments(int space_segments)
+{
+    this->space_segments = space_segments;
+}
+
+int GeometryView::getSpaceSegments() const
+{
+    return space_segments;
+}
+
+Vector3D GeometryView::map(const Vector2D &v)
 {
     return Vector3D(radius * sin(v.x) * cos(v.y),
                     radius * sin(v.x) * sin(v.y),
@@ -43,7 +64,9 @@ void GeometryView::addLine(const Vector2D& a, const Vector2D& b)
  */
 void GeometryView::addPoint(const Vector2D& p)
 {
+    QTextStream cout(stdout);
     points.push_back(p);
+    cout << "INFO: Added " << "[" << QVariant(p.x).toString() << ", " << QVariant(p.y).toString() << "]\n";
 }
 
 /**
@@ -52,22 +75,44 @@ void GeometryView::addPoint(const Vector2D& p)
  */
 void GeometryView::removePoint(const Vector2D& p)
 {
+    QTextStream cout(stdout);
     for (int i = 0; i < points.size(); ++i)
     {
-        if (points[i] == p)
+       if (points[i] == p)
         {
+            cout << "INFO: Removed " << "[" << QVariant(points[i].x).toString() << ", " << QVariant(points[i].y).toString() << "]\n";
             points[i] = points[points.size() - 1];
             points.pop_back();
-            break;
+            --i;
         }
     }
 }
 
+void GeometryView::clear()
+{
+    points.clear();
+    lines.clear();
+}
+
 void GeometryView::drawPoint(const Vector2D& p)
 {
-    float x = (radius+0) * sin(p.x) * cos(p.y);
-    float y = (radius+0) * sin(p.x) * sin(p.y);
-    float z = (radius+0) * cos(p.x);
+    int k = (p.y == 0 ? 0 : floor(p.y / (2 * M_PI)));
+    if (k == 0)
+    {
+        glColor3ub(245, 181, 56);
+    }
+    else if (k == 1)
+    {
+        glColor3ub(231, 112, 0);
+    }
+    else
+    {
+        glColor3ub(0, 181, 56);
+    }
+
+    float x = radius * sin(p.x) * cos(p.y);
+    float y = radius * sin(p.x) * sin(p.y);
+    float z = radius * cos(p.x);
     glVertex3d(x, y, z);
 }
 
@@ -75,35 +120,31 @@ void GeometryView::drawLine(const Vector2D &a, const Vector2D &b)
 {
     glBegin(GL_LINE_STRIP);
 
-    int n = quality;
+    Vector3D c = map(a);
+    Vector3D d = map(b);
 
-    Vector3D c = toDecard(a);
-    Vector3D d = toDecard(b);
-
-    for (int i = 0; i <= n; ++i)
+    Vector3D v = Vector3D::cross(c, d);
+    double full_angle = Vector3D::angleBetween(c, d);
+    v.normalize();
+    double dp = full_angle / line_segments;
+    double p = 0;
+    while (p <= full_angle + dp / 2)
     {
-        double k1 = (double)i/(double)n;
-        double k2 = 1 - k1;
+        double cosa = cos(-p);
+        double sina = sin(-p);
+        double cx = c.x * (cosa + (1 - cosa) * v.x * v.x) + c.y * ((1 - cosa) * v.y * v.x + sina * v.z) + c.z * ((1 - cosa) * v.z * v.x - sina * v.y);
+        double cy = c.x * ((1 - cosa) * v.x * v.y - sina * v.z) + c.y * (cosa + (1 - cosa * v.y * v.y)) + c.z * ((1 - cosa) * v.z * v.y + sina * v.x);
+        double cz = c.x * ((1 - cosa) * v.x * v.z + sina * v.y) + c.y * ((1 - cosa) * v.y * v.z - sina * v.x) + c.z * (cosa + (1 - cosa) * v.z * v.z);
 
-        Vector3D e1 = c;
-        e1.mul(k1);
-        Vector3D e2 = d;
-        e2.mul(k2);
-        e1 += e2;
-
-        e1.normalize();
-        e1.mul(radius);
-
-        glVertex3d(e1.x, e1.y, e1.z);
+        glVertex3d(cx, cy, cz);
+        p += dp;
     }
-
     glEnd();
 }
 
 void GeometryView::render()
 {
     glEnable( GL_BLEND );
-    //glBlendFunc( GL_SRC_ALPHA_SATURATE, GL_SRC_ALPHA );
     glEnable(GL_DEPTH_TEST);
     glPushMatrix();
 
@@ -115,7 +156,7 @@ void GeometryView::render()
         glPointSize(1);
         glBegin(GL_POINTS);
         glColor4f(0.5, 0.5, 0.5, 0.5);
-        int n = quality / 2;
+        int n = 180 / space_segments;
 
         for (int a = 0; a <= 180; a += n)
         {
@@ -129,7 +170,7 @@ void GeometryView::render()
         }
         glEnd();
 
-        glColor4f(1, 0, 0, 0.3);
+        glColor4ub(164, 31, 34, 255);
         for (int i = 0; i < lines.size(); ++i)
         {
             drawLine(lines[i].first, lines[i].second);
@@ -137,7 +178,6 @@ void GeometryView::render()
 
         glPointSize(3);
         glBegin(GL_POINTS);
-        glColor3f(1, 1, 0);
         for (int i = 0; i < points.size(); ++i)
         {
             drawPoint(points[i]);

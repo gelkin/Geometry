@@ -9,6 +9,17 @@ Vector3D::Vector3D()
     this->z = 0;
 }
 
+double Vector3D::scalar(const Vector3D &a, const Vector3D &b)
+{
+    return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+double Vector3D::angleBetween(const Vector3D &a, const Vector3D &b)
+{
+    return atan2(cross(a,b).getLenght(), scalar(a, b));
+}
+
+
 Vector3D::Vector3D(double x, double y, double z)
 {
     this->x = x;

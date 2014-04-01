@@ -10,6 +10,7 @@ class Console
 {
 public:
     template<class T>
+
     static void print(T string)
     {
         QTextStream cout(stdout);
