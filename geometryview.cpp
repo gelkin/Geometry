@@ -118,13 +118,18 @@ void GeometryView::drawPoint(const Vector2D& p)
 
 void GeometryView::drawLine(const Vector2D &a, const Vector2D &b)
 {
-    glBegin(GL_LINE_STRIP);
-
     Vector3D c = map(a);
     Vector3D d = map(b);
 
     Vector3D v = Vector3D::cross(c, d);
     double full_angle = Vector3D::angleBetween(c, d);
+    if (fabs(full_angle) < 1e-8)
+    {
+        return;
+    }
+
+    glBegin(GL_LINE_STRIP);
+
     v.normalize();
     double dp = full_angle / line_segments;
     double p = 0;
