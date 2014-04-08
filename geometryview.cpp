@@ -133,7 +133,7 @@ void GeometryView::drawLine(const Vector2D &a, const Vector2D &b)
         double cosa = cos(-p);
         double sina = sin(-p);
         double cx = c.x * (cosa + (1 - cosa) * v.x * v.x) + c.y * ((1 - cosa) * v.y * v.x + sina * v.z) + c.z * ((1 - cosa) * v.z * v.x - sina * v.y);
-        double cy = c.x * ((1 - cosa) * v.x * v.y - sina * v.z) + c.y * (cosa + (1 - cosa * v.y * v.y)) + c.z * ((1 - cosa) * v.z * v.y + sina * v.x);
+        double cy = c.x * ((1 - cosa) * v.x * v.y - sina * v.z) + c.y * (cosa + (1 - cosa) * v.y * v.y) + c.z * ((1 - cosa) * v.z * v.y + sina * v.x);
         double cz = c.x * ((1 - cosa) * v.x * v.z + sina * v.y) + c.y * ((1 - cosa) * v.y * v.z - sina * v.x) + c.z * (cosa + (1 - cosa) * v.z * v.z);
 
         glVertex3d(cx, cy, cz);
